@@ -1,0 +1,22 @@
+{
+  "name": "react-training",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Eduardo-Ortega102/react-training.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Eduardo-Ortega102/react-training/issues"
+  },
+  "homepage": "https://github.com/Eduardo-Ortega102/react-training#readme",
+  "dependencies": {
+    "prettier": "^2.7.1"
+  }
+}

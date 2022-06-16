@@ -3,6 +3,7 @@ import { useState } from "react";
 import Card from "../ui/Card";
 import ExpensesFilter from "./ExpensesFilter";
 import ExpensesList from "./ExpensesList";
+import ExpensesChart from "./ExpensesChart";
 
 const Expenses = (props) => {
   // 'useState' is a React Hook
@@ -22,6 +23,7 @@ const Expenses = (props) => {
         selectedYear={year}
         onYearSelected={filterChangeHandler}
       />
+      <ExpensesChart expenses={filteredExpenses} />
       <ExpensesList expenses={filteredExpenses} />
     </Card>
   );
