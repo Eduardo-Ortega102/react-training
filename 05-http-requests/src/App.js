@@ -5,31 +5,43 @@ import "./App.css";
 
 function App() {
   const [movies, setMovies] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState(null);
   /*const fetchMoviesHandler = () => {
-      fetch("https://swapi.dev/api/films/")
-        .then((response) => response.json())
-        .then((data) =>
-          setMovies(
-            data.results.map((movieData) => ({
-              id: movieData.episode_id,
-              title: movieData.title,
-              openingText: movieData.opening_crawl,
-              releaseDate: movieData.release_date,
-            }))
-          )
-        );
-    };*/
+                fetch("https://swapi.dev/api/films/")
+                  .then((response) => response.json())
+                  .then((data) =>
+                    setMovies(
+                      data.results.map((movieData) => ({
+                        id: movieData.episode_id,
+                        title: movieData.title,
+                        openingText: movieData.opening_crawl,
+                        releaseDate: movieData.release_date,
+                      }))
+                    )
+                  );
+              };*/
   const fetchMoviesHandler = async () => {
-    const response = await fetch("https://swapi.dev/api/films/");
-    const data = await response.json();
-    setMovies(
-      data.results.map((movieData) => ({
-        id: movieData.episode_id,
-        title: movieData.title,
-        openingText: movieData.opening_crawl,
-        releaseDate: movieData.release_date,
-      }))
-    );
+    setIsLoading(true);
+    setError(null);
+    try {
+      const response = await fetch("https://swapi.dev/api/films45/");
+      if (!response.ok) {
+        throw new Error("Something went wrong!");
+      }
+      const data = await response.json();
+      setMovies(
+        data.results.map((movieData) => ({
+          id: movieData.episode_id,
+          title: movieData.title,
+          openingText: movieData.opening_crawl,
+          releaseDate: movieData.release_date,
+        }))
+      );
+    } catch ($error) {
+      setError($error.message);
+    }
+    setIsLoading(false);
   };
 
   return (
@@ -38,7 +50,10 @@ function App() {
         <button onClick={fetchMoviesHandler}>Fetch Movies</button>
       </section>
       <section>
-        <MoviesList movies={movies} />
+        {!isLoading && movies.length > 0 && <MoviesList movies={movies} />}
+        {!isLoading && movies.length === 0 && !error && <p>No movies found!</p>}
+        {isLoading && <p>Loading...</p>}
+        {!isLoading && error && <p>{error}</p>}
       </section>
     </React.Fragment>
   );
